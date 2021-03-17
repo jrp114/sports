@@ -1,0 +1,22 @@
+{
+    "compilerOptions":{
+        "target":"ES6",
+        "module":"CommonJS",
+        "declaration":true,
+        "declarationMap":true,
+        "lib":["ES6"],
+        "outDir":"build",
+        "rootDir":"src",
+        "sourceMap":true,
+        "noImplicitAny":true,
+        "noImplicitThis":true,
+        "strict":true,
+        "strictFunctionTypes":true,
+        "strictNullChecks":true,
+        "strictPropertyInitialization":true,
+        "allowSyntheticDefaultImports":true,
+        "baseUrl":"./src",
+        "esModuleInterop":true,
+        "resolveJsonModule": true
+    }
+}
