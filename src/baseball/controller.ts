@@ -23,6 +23,18 @@ const mlb = {
             console.log(err.message)
             return 'error'
         }
+    },
+    getPlayerInfo: async (playerId: String) => {
+        try {
+            const playerDetail: { data: { player_info: { queryResults: { row: any }}}} = await axios.get(
+                `${process.env.MLB_API}/json/named.player_info.bam?sport_code='mlb'&player_id='${playerId}'`
+            )
+            const row = playerDetail?.data?.player_info?.queryResults?.row
+            return row
+        } catch (err) {
+            console.log(err.message)
+            return 'error'
+        }
     }
 }
 
