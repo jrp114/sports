@@ -47,6 +47,33 @@ const mlb = {
             console.log(err.message)
             return 'error'
         }
+    },
+    getPlayerPostSeasonHittingStats: async (playerId: String, year: String) => {
+        try {
+            const playerDivisionHits: { data: { sport_hitting_tm: { queryResults: { row: any }}}} = await axios.get(
+                `${process.env.MLB_API}/json/named.sport_hitting_tm.bam?league_list_id='mlb'&game_type='D'&season='${year}'&player_id='${playerId}'`
+            )
+            const dHits = playerDivisionHits?.data?.sport_hitting_tm?.queryResults?.row
+            dHits ? dHits['post_season'] = 'Divisional' : null
+            const playerWildCardHits: { data: { sport_hitting_tm: { queryResults: { row: any }}}} = await axios.get(
+                `${process.env.MLB_API}/json/named.sport_hitting_tm.bam?league_list_id='mlb'&game_type='F'&season='${year}'&player_id='${playerId}'`
+            )
+            const wcHits = playerWildCardHits?.data?.sport_hitting_tm?.queryResults?.row
+            wcHits ? wcHits['post_season'] = 'Wild Card' : null
+            const playerChampionshipHits: { data: { sport_hitting_tm: { queryResults: { row: any }}}} = await axios.get(
+                `${process.env.MLB_API}/json/named.sport_hitting_tm.bam?league_list_id='mlb'&game_type='L'&season='${year}'&player_id='${playerId}'`
+            )
+            const cHits = playerChampionshipHits?.data?.sport_hitting_tm?.queryResults?.row
+            cHits ? cHits['post_season'] = 'League Championship' :  null
+            const ret = []
+            dHits && Object.keys(dHits).length > 1 && ret.push(dHits)
+            wcHits && Object.keys(wcHits).length > 1 && ret.push(wcHits)
+            cHits && Object.keys(cHits).length > 1 && ret.push(cHits)
+            return ret
+        } catch (err) {
+            console.log(err.message)
+            return 'error'
+        }
     }
 }
 

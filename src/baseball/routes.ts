@@ -29,4 +29,12 @@ app.get("/get-player-regular-season-hitting", async (req: Request, res: Response
     res.status(200).send({player_hitting: playerHitting})
 });
 
+app.get("/get-player-post-season-hitting", async (req: Request, res: Response) => {
+    const playerHitting = await mlb.getPlayerPostSeasonHittingStats(req.query.playerId, req.query.year)
+    if (playerHitting == 'error') {
+        res.status(500).send({error: 'data was not processed correctly'})
+    }
+    res.status(200).send({player_hitting: playerHitting})
+});
+
 export { app }
