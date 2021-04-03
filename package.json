@@ -6,6 +6,8 @@
   "author": "Jeremy Price <jrp114@yahoo.com>",
   "license": "MIT",
   "scripts": {
+    "dev": "yarn run build && nodemon --config nodemon.json build/main.js",
+    "start:dev": "node build/main.js",
     "start": "yarn run build && node build/main.js",
     "build": "rimraf ./build && tsc"
   },
@@ -17,6 +19,8 @@
     "typescript": "^4.2.3"
   },
   "devDependencies": {
-    "rimraf": "^3.0.2"
+    "nodemon": "^2.0.7",
+    "rimraf": "^3.0.2",
+    "ts-node": "^9.1.1"
   }
 }
