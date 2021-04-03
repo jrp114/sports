@@ -35,6 +35,18 @@ const mlb = {
             console.log(err.message)
             return 'error'
         }
+    },
+    getPlayerRegularSeasonHittingStats: async (playerId: String, year: String) => {
+        try {
+            const playerHits: { data: { sport_hitting_tm: { queryResults: { row: any }}}} = await axios.get(
+                `${process.env.MLB_API}/json/named.sport_hitting_tm.bam?league_list_id='mlb'&game_type='R'&season='${year}'&player_id='${playerId}'`
+            )
+            const row = playerHits?.data?.sport_hitting_tm?.queryResults?.row
+            return row
+        } catch (err) {
+            console.log(err.message)
+            return 'error'
+        }
     }
 }
 
