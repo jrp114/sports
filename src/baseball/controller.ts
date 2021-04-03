@@ -74,7 +74,142 @@ const mlb = {
             console.log(err.message)
             return 'error'
         }
-    }
+    },
+    getPlayerWorldSeriesHittingStats: async (playerId: String, year: String) => {
+        try {
+            const playerHits: { data: { sport_hitting_tm: { queryResults: { row: any }}}} = await axios.get(
+                `${process.env.MLB_API}/json/named.sport_hitting_tm.bam?league_list_id='mlb'&game_type='W'&season='${year}'&player_id='${playerId}'`
+            )
+            const row = playerHits?.data?.sport_hitting_tm?.queryResults?.row
+            return row
+        } catch (err) {
+            console.log(err.message)
+            return 'error'
+        }
+    },
+    getPlayerSpringTrainingHittingStats: async (playerId: String, year: String) => {
+        try {
+            const playerHits: { data: { sport_hitting_tm: { queryResults: { row: any }}}} = await axios.get(
+                `${process.env.MLB_API}/json/named.sport_hitting_tm.bam?league_list_id='mlb'&game_type='S'&season='${year}'&player_id='${playerId}'`
+            )
+            const row = playerHits?.data?.sport_hitting_tm?.queryResults?.row
+            return row
+        } catch (err) {
+            console.log(err.message)
+            return 'error'
+        }
+    },
+    getPlayerExibitionHittingStats: async (playerId: String, year: String) => {
+        try {
+            const playerHits: { data: { sport_hitting_tm: { queryResults: { row: any }}}} = await axios.get(
+                `${process.env.MLB_API}/json/named.sport_hitting_tm.bam?league_list_id='mlb'&game_type='E'&season='${year}'&player_id='${playerId}'`
+            )
+            const row = playerHits?.data?.sport_hitting_tm?.queryResults?.row
+            return row
+        } catch (err) {
+            console.log(err.message)
+            return 'error'
+        }
+    },
+    getPlayerAllStarHittingStats: async (playerId: String, year: String) => {
+        try {
+            const playerHits: { data: { sport_hitting_tm: { queryResults: { row: any }}}} = await axios.get(
+                `${process.env.MLB_API}/json/named.sport_hitting_tm.bam?league_list_id='mlb'&game_type='A'&season='${year}'&player_id='${playerId}'`
+            )
+            const row = playerHits?.data?.sport_hitting_tm?.queryResults?.row
+            return row
+        } catch (err) {
+            console.log(err.message)
+            return 'error'
+        }
+    },
+    getPlayerRegularSeasonPitchingStats: async (playerId: String, year: String) => {
+        try {
+            const playerPitching: { data: { sport_pitching_tm: { queryResults: { row: any }}}} = await axios.get(
+                `${process.env.MLB_API}//json/named.sport_pitching_tm.bam?league_list_id='mlb'&game_type='R'&season='${year}'&player_id='${playerId}'`
+            )
+            const row = playerPitching?.data?.sport_pitching_tm?.queryResults?.row
+            return row
+        } catch (err) {
+            console.log(err.message)
+            return 'error'
+        }
+    },
+    getPlayerPostSeasonPitchingStats: async (playerId: String, year: String) => {
+        try {
+            const playerDivisionPitches: { data: { sport_pitching_tm: { queryResults: { row: any }}}} = await axios.get(
+                `${process.env.MLB_API}/json/named.sport_pitching_tm.bam?league_list_id='mlb'&game_type='D'&season='${year}'&player_id='${playerId}'`
+            )
+            const dPitches = playerDivisionPitches?.data?.sport_pitching_tm?.queryResults?.row
+            dPitches ? dPitches['post_season'] = 'Divisional' : null
+            const playerWildCardPitches: { data: { sport_pitching_tm: { queryResults: { row: any }}}} = await axios.get(
+                `${process.env.MLB_API}/json/named.sport_pitching_tm.bam?league_list_id='mlb'&game_type='F'&season='${year}'&player_id='${playerId}'`
+            )
+            const wcPitches = playerWildCardPitches?.data?.sport_pitching_tm?.queryResults?.row
+            wcPitches ? wcPitches['post_season'] = 'Wild Card' : null
+            const playerChampionshipPitches: { data: { sport_pitching_tm: { queryResults: { row: any }}}} = await axios.get(
+                `${process.env.MLB_API}/json/named.sport_pitching_tm.bam?league_list_id='mlb'&game_type='L'&season='${year}'&player_id='${playerId}'`
+            )
+            const cPitches = playerChampionshipPitches?.data?.sport_pitching_tm?.queryResults?.row
+            cPitches ? cPitches['post_season'] = 'League Championship' :  null
+            const ret = []
+            dPitches && Object.keys(dPitches).length > 1 && ret.push(dPitches)
+            wcPitches && Object.keys(wcPitches).length > 1 && ret.push(wcPitches)
+            cPitches && Object.keys(cPitches).length > 1 && ret.push(cPitches)
+            return ret
+        } catch (err) {
+            console.log(err.message)
+            return 'error'
+        }
+    },
+    getPlayerWorldSeriesPitchingStats: async (playerId: String, year: String) => {
+        try {
+            const playerPitches: { data: { sport_pitching_tm: { queryResults: { row: any }}}} = await axios.get(
+                `${process.env.MLB_API}/json/named.sport_pitching_tm.bam?league_list_id='mlb'&game_type='W'&season='${year}'&player_id='${playerId}'`
+            )
+            const row = playerPitches?.data?.sport_pitching_tm?.queryResults?.row
+            return row
+        } catch (err) {
+            console.log(err.message)
+            return 'error'
+        }
+    },
+    getPlayerSpringTrainingPitchingStats: async (playerId: String, year: String) => {
+        try {
+            const playerPitches: { data: { sport_pitching_tm: { queryResults: { row: any }}}} = await axios.get(
+                `${process.env.MLB_API}/json/named.sport_pitching_tm.bam?league_list_id='mlb'&game_type='S'&season='${year}'&player_id='${playerId}'`
+            )
+            const row = playerPitches?.data?.sport_pitching_tm?.queryResults?.row
+            return row
+        } catch (err) {
+            console.log(err.message)
+            return 'error'
+        }
+    },
+    getPlayerExibitionPitchingStats: async (playerId: String, year: String) => {
+        try {
+            const playerPitches: { data: { sport_pitching_tm: { queryResults: { row: any }}}} = await axios.get(
+                `${process.env.MLB_API}/json/named.sport_pitching_tm.bam?league_list_id='mlb'&game_type='E'&season='${year}'&player_id='${playerId}'`
+            )
+            const row = playerPitches?.data?.sport_pitching_tm?.queryResults?.row
+            return row
+        } catch (err) {
+            console.log(err.message)
+            return 'error'
+        }
+    },
+    getPlayerAllStarPitchingStats: async (playerId: String, year: String) => {
+        try {
+            const playerPitches: { data: { sport_pitching_tm: { queryResults: { row: any }}}} = await axios.get(
+                `${process.env.MLB_API}/json/named.sport_pitching_tm.bam?league_list_id='mlb'&game_type='A'&season='${year}'&player_id='${playerId}'`
+            )
+            const row = playerPitches?.data?.sport_pitching_tm?.queryResults?.row
+            return row
+        } catch (err) {
+            console.log(err.message)
+            return 'error'
+        }
+    },
 }
 
 const college = {

@@ -37,4 +37,87 @@ app.get("/get-player-post-season-hitting", async (req: Request, res: Response) =
     res.status(200).send({player_hitting: playerHitting})
 });
 
+app.get("/get-player-world-series-hitting", async (req: Request, res: Response) => {
+    const playerHitting = await mlb.getPlayerWorldSeriesHittingStats(req.query.playerId, req.query.year)
+    if (playerHitting == 'error') {
+        res.status(500).send({error: 'data was not processed correctly'})
+    }
+    res.status(200).send({player_hitting: playerHitting})
+});
+
+app.get("/get-player-spring-training-hitting", async (req: Request, res: Response) => {
+    const playerHitting = await mlb.getPlayerSpringTrainingHittingStats(req.query.playerId, req.query.year)
+    if (playerHitting == 'error') {
+        res.status(500).send({error: 'data was not processed correctly'})
+    }
+    res.status(200).send({player_hitting: playerHitting})
+});
+
+app.get("/get-player-exibition-hitting", async (req: Request, res: Response) => {
+    const playerHitting = await mlb.getPlayerExibitionHittingStats(req.query.playerId, req.query.year)
+    if (playerHitting == 'error') {
+        res.status(500).send({error: 'data was not processed correctly'})
+    }
+    res.status(200).send({player_hitting: playerHitting})
+});
+
+app.get("/get-player-all-star-hitting", async (req: Request, res: Response) => {
+    const playerHitting = await mlb.getPlayerAllStarHittingStats(req.query.playerId, req.query.year)
+    if (playerHitting == 'error') {
+        res.status(500).send({error: 'data was not processed correctly'})
+    }
+    res.status(200).send({player_hitting: playerHitting})
+});
+
+app.get("/get-player-regular-season-pitching", async (req: Request, res: Response) => {
+    const playerPitching = await mlb.getPlayerRegularSeasonPitchingStats(req.query.playerId, req.query.year)
+    if (playerPitching == 'error') {
+        res.status(500).send({error: 'data was not processed correctly'})
+    }
+    res.status(200).send({player_pitching: playerPitching})
+});
+
+
+
+app.get("/get-player-post-season-pitching", async (req: Request, res: Response) => {
+    const playerPitching = await mlb.getPlayerPostSeasonPitchingStats(req.query.playerId, req.query.year)
+    if (playerPitching == 'error') {
+        res.status(500).send({error: 'data was not processed correctly'})
+    }
+    res.status(200).send({player_pitching: playerPitching})
+});
+
+app.get("/get-player-world-series-pitching", async (req: Request, res: Response) => {
+    const playerPitching = await mlb.getPlayerWorldSeriesPitchingStats(req.query.playerId, req.query.year)
+    if (playerPitching == 'error') {
+        res.status(500).send({error: 'data was not processed correctly'})
+    }
+    res.status(200).send({player_pitching: playerPitching})
+});
+
+app.get("/get-player-spring-training-pitching", async (req: Request, res: Response) => {
+    const playerPitching = await mlb.getPlayerSpringTrainingPitchingStats(req.query.playerId, req.query.year)
+    if (playerPitching == 'error') {
+        res.status(500).send({error: 'data was not processed correctly'})
+    }
+    res.status(200).send({player_pitching: playerPitching})
+});
+
+app.get("/get-player-exibition-pitching", async (req: Request, res: Response) => {
+    const playerPitching = await mlb.getPlayerExibitionPitchingStats(req.query.playerId, req.query.year)
+    if (playerPitching == 'error') {
+        res.status(500).send({error: 'data was not processed correctly'})
+    }
+    res.status(200).send({player_pitching: playerPitching})
+});
+
+app.get("/get-player-all-star-pitching", async (req: Request, res: Response) => {
+    const playerPitching = await mlb.getPlayerAllStarPitchingStats(req.query.playerId, req.query.year)
+    if (playerPitching == 'error') {
+        res.status(500).send({error: 'data was not processed correctly'})
+    }
+    res.status(200).send({player_pitching: playerPitching})
+});
+
+
 export { app }
